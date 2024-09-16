@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoving : TungMonoBehaviour
+public class PlayerController : TungMonoBehaviour
 {
     public Rigidbody2D rb;
     public SpriteRenderer rot;
@@ -27,22 +27,19 @@ public class PlayerMoving : TungMonoBehaviour
     {
         if (Input.GetKey("d"))
         {
-            PlayerMove(toRight);
-            PlayerRotation(true);
+            PlayerMoveRight();
         }
         else if (Input.GetKey("a"))
         {
-            PlayerMove(toLeft);
-            PlayerRotation(false);
+            PlayerMoveLeft();
         }
         else
         {
-            AnimationStop();
+            PlayerStopMovement();
         }
-        if (Input.GetKeyDown("space") == true && OnGound == true)
+        if (Input.GetKeyDown("space") == true)
         {
-            rb.AddForce(new Vector2(0, 1) * jumpSpeed, ForceMode2D.Impulse);
-            StartCoroutine(AnimationJump());
+            PlayerJump();
         }
     }
     void PlayerMove(Vector2 moveVector)
@@ -79,5 +76,27 @@ public class PlayerMoving : TungMonoBehaviour
             Debug.Log("playing animation : " + currentAnimation);
         }
         
+    }
+    public void PlayerMoveRight()
+    {
+        PlayerMove(toRight);
+        PlayerRotation(true);
+    }
+    public void PlayerMoveLeft()
+    {
+        PlayerMove(toLeft);
+        PlayerRotation(false);
+    }
+    public void PlayerStopMovement()
+    {
+        AnimationStop();
+    }
+    public void PlayerJump()
+    {
+        if(OnGound == true)
+        {
+            rb.AddForce(new Vector2(0, 1) * jumpSpeed, ForceMode2D.Impulse);
+            StartCoroutine(AnimationJump());
+        }
     }
 }

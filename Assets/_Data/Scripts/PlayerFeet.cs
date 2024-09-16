@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class PlayerFeet : TungMonoBehaviour
 {
-    public PlayerMoving playerMoving;
+    public PlayerController playerController;
     protected override void LoadComponent()
     {
         base.LoadComponent();
-        playerMoving = GetComponentInParent<PlayerMoving>();
+        playerController = GetComponentInParent<PlayerController>();
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        playerMoving.OnGound = true;
+        playerController.OnGound = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        playerMoving.OnGound = false;
+        playerController.OnGound = false;
     }
 }
